@@ -1,0 +1,18 @@
+1) install it as as rails plugin:
+
+git submodule add git://github.com/davidlee/lazy_finder.git vendor/plugins/lazy_finder
+git submodule update --init
+
+2) install it in your model
+
+class User
+  # these two methods are equivalent:
+  include LazyFinder 
+  lazy_finder :name, :username, :login, :title, :email, :identifier 
+end
+
+3) use it in your app or script/console:
+
+User['billg@microsoft.com'] # => User.find_by_email( ... )
+User['Bill Guggenheim']     # => User.find_by_name
+User['horsepoop']           # => nil - doesn't raise RecordNotFound
